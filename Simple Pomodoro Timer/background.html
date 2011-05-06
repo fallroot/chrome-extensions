@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <audio id="audio" src="rain.mp3" loop></audio>
+    <script>
+      var Pomodoro = {
+        // 기본 뽀모도로 시간을 25분으로 합니다.
+        POMODORO_TIME: 25 * 60 * 1000,
+
+        // 뽀모도로를 시작합니다.
+        start: function() {
+          this.active = true;
+          this.startedAt = new Date();
+          this.interval = setInterval(this.countDown, 1000);
+          document.getElementById('audio').play();
+        },
+
+        // 뽀모도로를 중지합니다.
+        stop: function() {
+          document.getElementById('audio').pause();
+          clearInterval(this.interval);
+          this.active = false;
+        },
+
+        // 1초마다 남은 시간을 계산해서 뱃지에 표시합니다.
+        countDown: function() {
+          var timeLeft = Pomodoro.POMODORO_TIME - (new Date() - Pomodoro.startedAt);
+
+          if (timeLeft <= 0) {
+            Pomodoro.stop();
+            return;
+          }
+
+          var minutes = Math.floor(timeLeft / 60000),
+              seconds = Math.floor((timeLeft - minutes * 60000) / 1000);
+
+          chrome.browserAction.setBadgeText({
+            text: minutes + ':' + (seconds < 10 ? '0' : '') + seconds
+          });
+        }
+      };
+
+      // 아이콘 클릭 이벤트를 설정합니다.
+      chrome.browserAction.onClicked.addListener(function(tab) {
+        // 클릭할 때마다 뽀모도로를 켰다 껐다 합니다.
+        Pomodoro[Pomodoro.active ? 'stop' : 'start']();
+      });
+    </script>
+  </body>
+</html>
