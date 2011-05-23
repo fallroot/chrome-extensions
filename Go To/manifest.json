@@ -1,0 +1,8 @@
+{
+  "name": "Go To",
+  "version": "0.1.0",
+  "content_scripts": [{
+    "matches": ["http://*/*", "https://*/*"],
+    "js": ["goto.js"]
+  }]
+}

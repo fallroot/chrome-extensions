@@ -1,0 +1,13 @@
+@-webkit-keyframes rainbow {
+  0%   {color: #f00;}
+  17%  {color: #f90;}
+  33%  {color: #ff0;}
+  50%  {color: #0f0;}
+  67%  {color: #00f;}
+  83%  {color: #60f;}
+  100% {color: #90f;}
+}
+
+a:hover {
+  -webkit-animation: rainbow infinite 3s;
+}

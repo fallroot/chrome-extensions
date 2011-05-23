@@ -1,0 +1,11 @@
+{
+  "name": "Rainbow Link",
+  "version": "0.1.0",
+  "icons": {
+    "48": "icon-48.png"
+  },
+  "content_scripts": [{
+    "matches": ["http://*/*", "https://*/*"],
+    "css": ["rainbow.css"]
+  }]
+}
